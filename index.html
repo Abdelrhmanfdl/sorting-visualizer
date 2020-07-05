@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting-Visualizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="img/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Acme"
+    />
+  </head>
+
+  <body>
+    <div id="menu">
+      <div id="arr-size-div">
+        <label id="current-arr-size-label"></label>
+        <input type="range" id="arr-size" min="3" max="100" value="100" />
+      </div>
+
+      <div id="new-format">
+        <button id="new-arr-btn">Generate new array</button>
+        <button id="descending-arr-btn">Generate descending array</button>
+      </div>
+
+      <div id="delay-div">
+        <label>Delay</label>
+        <input type="range" id="delay" min="0" max="500" value="100" />
+      </div>
+
+      <div id="sorting-type">
+        <button onclick="bubbleSort()">Bubble Sort</button>
+        <button onclick="selectionSort()">Selection Sort</button>
+        <button onclick="insertionSort()">Insertion Sort</button>
+        <button onclick="controlMergeSort()">Merge Sort</button>
+        <button onclick="controlQuickSort()">Quick Sort</button>
+      </div>
+
+      <div id="btns"></div>
+    </div>
+    <div id="bars"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
