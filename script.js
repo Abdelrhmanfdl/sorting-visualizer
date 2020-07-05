@@ -280,7 +280,7 @@ async function partitioning(l, r) {
     [bars[I], bars[J]] = [bars[J], bars[I]];
     swapTwoChildren(barsChildren[I], barsChildren[J]);
   }
-
+  await pause(document.getElementById("delay").value);
   barsChildren[l].style.backgroundColor = barMainClr;
 
   if (J < l) return l;
