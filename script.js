@@ -2,8 +2,8 @@ const selectedBarClr = "#fbfbfb",
   nextBarClr = "#ff0505",
   barMainClr = "#ffac05",
   finishedBarClr = "#fce2ae";
-let bars,
-  stopSorting = 0;
+let bars, // contains the numerical sizes of bars in the same current order, make it easier to compare bars
+  stopSorting = 0; // a flag to stop any sorting process, called by buildBars
 
 buildBars();
 document.getElementById("arr-size").oninput = buildBars;
@@ -11,8 +11,11 @@ document.getElementById("arr-size").oninput = buildBars;
 document.getElementById("new-arr-btn").onclick = buildBars;
 document.getElementById("descending-arr-btn").onclick = buildBars;
 
+// called by array size range, generate new array button and generate descending array
 function buildBars() {
+  // stop any sorting process
   stopSorting = true;
+
   sortingAbility(1);
 
   bars = [];
@@ -71,6 +74,7 @@ function pause(micSec) {
   });
 }
 
+// to swap bar elements
 function swapTwoChildren(elem1, elem2) {
   let x = elem1.cloneNode(true),
     y = elem2.cloneNode(true);
@@ -78,6 +82,7 @@ function swapTwoChildren(elem1, elem2) {
   elem2.parentNode.replaceChild(x, elem2);
 }
 
+// for disabling sorting buttons while sorting process.
 function sortingAbility(able) {
   for (
     let i = 0;
@@ -87,6 +92,8 @@ function sortingAbility(able) {
     document.getElementById("sorting-type").children[i].disabled = !able;
   }
 }
+
+/*    Bubble Sort     */
 
 async function bubbleSort() {
   stopSorting = false;
@@ -125,9 +132,9 @@ async function bubbleSort() {
   sortingAbility(1);
 }
 
-async function selectionSort() {
-  // buggy
+/*    Selection Sort     */
 
+async function selectionSort() {
   stopSorting = false;
   sortingAbility(0);
 
@@ -163,6 +170,8 @@ async function selectionSort() {
   sortingAbility(1);
 }
 
+/*    Insertion Sort     */
+
 async function insertionSort() {
   stopSorting = false;
   sortingAbility(0);
@@ -178,6 +187,8 @@ async function insertionSort() {
       barsChildren[j].style.backgroundColor = nextBarClr;
 
       await pause(document.getElementById("delay").value);
+      if (stopSorting) return;
+
       barsChildren[j + 1].style.backgroundColor = barMainClr;
       barsChildren[j].style.backgroundColor = barMainClr;
 
@@ -193,6 +204,8 @@ async function insertionSort() {
   }
   sortingAbility(1);
 }
+
+/*    merge Sort     */
 
 async function merge(l, mid, r) {
   let l1 = l,
@@ -256,6 +269,8 @@ async function controlMergeSort() {
   sortingAbility(1);
 }
 
+/*    Quick Sort     */
+
 async function partitioning(l, r) {
   let I = l,
     J = r,
@@ -273,6 +288,7 @@ async function partitioning(l, r) {
     barsChildren[J].style.backgroundColor = nextBarClr;
 
     await pause(document.getElementById("delay").value);
+    if (stopSorting) return;
 
     barsChildren[I].style.backgroundColor = barMainClr;
     barsChildren[J].style.backgroundColor = barMainClr;
@@ -281,6 +297,8 @@ async function partitioning(l, r) {
     swapTwoChildren(barsChildren[I], barsChildren[J]);
   }
   await pause(document.getElementById("delay").value);
+  if (stopSorting) return;
+
   barsChildren[l].style.backgroundColor = barMainClr;
 
   if (J < l) return l;
